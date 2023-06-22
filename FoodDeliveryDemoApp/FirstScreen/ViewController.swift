@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     private let viewModel: FirtsScreenViewModel
     
+    private var mainView = FirstScreenView()
+    
     
     //MARK: Init and LifeCycle
 
@@ -37,11 +39,15 @@ class ViewController: UIViewController {
 private extension ViewController {
     
      func setupViews() {
-         view.backgroundColor = .cyan
+         view.backgroundColor = .white
+         view.addSubview(mainView)
          
-//         let constrains = [
-//           
-//         ]
-//         NSLayoutConstraint.activate(constrains)
+         let constrains = [
+            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+         ]
+         NSLayoutConstraint.activate(constrains)
     }
 }
