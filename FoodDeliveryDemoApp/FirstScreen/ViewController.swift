@@ -21,6 +21,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        viewModel.fetchMenu()
+        viewModel.reloader =  { [self] in
+            mainView.menu = viewModel.menu.sorted(by: { $0.category!.rawValue < $1.category!.rawValue })
+            mainView.tableView.reloadData()
+        }
     }
         
   
