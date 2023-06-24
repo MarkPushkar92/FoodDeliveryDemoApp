@@ -11,8 +11,8 @@ struct MenuObject {
     
     let img: String?
     let name, dsc: String?
-    let price: Double?
-    let category: Category?
+    let price: String?
+    let category: String?
     
 }
 

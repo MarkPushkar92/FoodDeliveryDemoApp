@@ -13,6 +13,7 @@ protocol FirstScreenOutput {
 
 final class FirtsScreenViewModel: FirstScreenOutput {
     
+    
     let networkService = NetworkFetcherService()
     
     var reloader: (() -> ())?
@@ -35,6 +36,7 @@ final class FirtsScreenViewModel: FirstScreenOutput {
         for category in Category.allCases {
             networkService.fetchDetails(categoty: category) { recievedData in
                 if let recievedData = recievedData {
+                    StorageManager.deleteAllObjects()
                     for index in 0...4 {
                         let object = recievedData[index]
                         let name = object.name
@@ -43,10 +45,46 @@ final class FirtsScreenViewModel: FirstScreenOutput {
                         let price = object.price
                         let menuObject = MenuObject(img: image, name: name, dsc: description, price: price, category: category)
                         self.menu.append(menuObject)
-                    } 
+                        self.saveToDataBase(object: menuObject) { (data, item) in
+                            item.imageData = data
+                            StorageManager.saveObject(item)
+                        }
+                    }
+                } else {
+                    let data = realm.objects(MenuItemCashed.self)
+                    for object in data {
+                        let name = object.name
+                        let description = object.desc
+                        let image = object.imageData
+                        let price = object.price
+                        let category = object.category
+                        let menuObject = MenuObject(img: image, name: name, dsc: description, price: price, category: category)
+
+                        
+                    }
                 }
             }
         }
+    }
+    
+    
+    func saveToDataBase(object: MenuObject, closure: @escaping (Data?, MenuItemCashed) -> () ) {
+        let name = object.name
+        let desc = object.dsc
+        let price = String(describing: object.price)
+        let category = object.category?.rawValue
+        guard let url = URL(string: object.img!) else { return }
+        
+        var imageData: Data?
+        DispatchQueue.global().async {
+             imageData = try? Data(contentsOf: url)
+            let item = MenuItemCashed(name: name, desc: desc, category: category, imageData: nil, price: price)
+            DispatchQueue.main.async {
+                closure(imageData, item)
+            }
+        }
+      
+        
     }
     
 }
