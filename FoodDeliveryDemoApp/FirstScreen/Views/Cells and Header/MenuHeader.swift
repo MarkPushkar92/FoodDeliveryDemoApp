@@ -101,7 +101,7 @@ extension MenuHeaderView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 24, left: 8, bottom: 24, right: 8)
+        return UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 8)
     }
 }
 

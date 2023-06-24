@@ -21,6 +21,9 @@
 		634A693F2A44529700790BDA /* FirstScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A693E2A44529700790BDA /* FirstScreenView.swift */; };
 		634A69422A44538500790BDA /* CommonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A69412A44538500790BDA /* CommonExtensions.swift */; };
 		634A69442A44546500790BDA /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A69432A44546500790BDA /* MenuCell.swift */; };
+		635222E42A4700BA003331B9 /* PromoCollectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635222E32A4700BA003331B9 /* PromoCollectionContainer.swift */; };
+		635222E62A4701A6003331B9 /* PromoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635222E52A4701A6003331B9 /* PromoCell.swift */; };
+		635222E92A470D3B003331B9 /* CustomBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635222E82A470D3B003331B9 /* CustomBarButton.swift */; };
 		6385DAC92A44709D002E3DBA /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6385DAC82A44709D002E3DBA /* NetworkDataFetcher.swift */; };
 		6385DACB2A4470B3002E3DBA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6385DACA2A4470B3002E3DBA /* NetworkService.swift */; };
 		6385DACD2A4470CE002E3DBA /* NetworkFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6385DACC2A4470CE002E3DBA /* NetworkFetcherService.swift */; };
@@ -47,6 +50,9 @@
 		634A693E2A44529700790BDA /* FirstScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreenView.swift; sourceTree = "<group>"; };
 		634A69412A44538500790BDA /* CommonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtensions.swift; sourceTree = "<group>"; };
 		634A69432A44546500790BDA /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		635222E32A4700BA003331B9 /* PromoCollectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCollectionContainer.swift; sourceTree = "<group>"; };
+		635222E52A4701A6003331B9 /* PromoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCell.swift; sourceTree = "<group>"; };
+		635222E82A470D3B003331B9 /* CustomBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarButton.swift; sourceTree = "<group>"; };
 		6385DAC82A44709D002E3DBA /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
 		6385DACA2A4470B3002E3DBA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6385DACC2A4470CE002E3DBA /* NetworkFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetcherService.swift; sourceTree = "<group>"; };
@@ -130,6 +136,18 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		635222E72A470475003331B9 /* Cells and Header */ = {
+			isa = PBXGroup;
+			children = (
+				635222E52A4701A6003331B9 /* PromoCell.swift */,
+				634A69432A44546500790BDA /* MenuCell.swift */,
+				635222E32A4700BA003331B9 /* PromoCollectionContainer.swift */,
+				63B664742A455A100035D4A1 /* MenuHeader.swift */,
+				63B664772A455AF60035D4A1 /* SelectCategoryCell.swift */,
+			);
+			path = "Cells and Header";
+			sourceTree = "<group>";
+		};
 		6385DAC72A447079002E3DBA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,9 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				634A693E2A44529700790BDA /* FirstScreenView.swift */,
-				634A69432A44546500790BDA /* MenuCell.swift */,
-				63B664742A455A100035D4A1 /* MenuHeader.swift */,
-				63B664772A455AF60035D4A1 /* SelectCategoryCell.swift */,
+				635222E72A470475003331B9 /* Cells and Header */,
+				635222E82A470D3B003331B9 /* CustomBarButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6385DACF2A447420002E3DBA /* MenuModel.swift in Sources */,
+				635222E42A4700BA003331B9 /* PromoCollectionContainer.swift in Sources */,
 				634A692F2A44505C00790BDA /* Coordinator.swift in Sources */,
 				634A69422A44538500790BDA /* CommonExtensions.swift in Sources */,
 				63B664782A455AF60035D4A1 /* SelectCategoryCell.swift in Sources */,
@@ -235,7 +253,9 @@
 				634A693F2A44529700790BDA /* FirstScreenView.swift in Sources */,
 				634A691F2A444FEF00790BDA /* ViewController.swift in Sources */,
 				634A691B2A444FEF00790BDA /* AppDelegate.swift in Sources */,
+				635222E62A4701A6003331B9 /* PromoCell.swift in Sources */,
 				634A69312A44506C00790BDA /* MainCoordinator.swift in Sources */,
+				635222E92A470D3B003331B9 /* CustomBarButton.swift in Sources */,
 				634A69352A4450B600790BDA /* TabBarViewController.swift in Sources */,
 				634A691D2A444FEF00790BDA /* SceneDelegate.swift in Sources */,
 				639088132A458305005B9BE1 /* Model.swift in Sources */,

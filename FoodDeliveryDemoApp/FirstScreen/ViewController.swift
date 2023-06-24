@@ -44,6 +44,8 @@ class ViewController: UIViewController {
 private extension ViewController {
     
      func setupViews() {
+         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomBarButton())
+
          view.backgroundColor = .white
          view.addSubview(mainView)
          
