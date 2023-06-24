@@ -48,6 +48,7 @@ class MenuHeaderView: UITableViewHeaderFooterView {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = false
+    
         
     }
     
@@ -73,11 +74,8 @@ extension MenuHeaderView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-     //   let selectedColor = UIColor(red: 0.95, green: 0.23, blue: 0.41, alpha: 0.4)
         let selectedCell: SelectCategoryCell = collectionView.cellForItem(at: indexPath)! as! SelectCategoryCell
-//        selectedCell.contentView.backgroundColor = selectedColor
-//        selectedCell.label.font = .systemFont(ofSize: 13, weight: .bold)
-//        selectedCell.label.textColor = UIColor(red: 0.95, green: 0.23, blue: 0.41, alpha: 1)
+
         guard let onTap = onTap else { return }
         onTap(selectedCell.label.text ?? "")
         
@@ -85,11 +83,7 @@ extension MenuHeaderView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        let selectedColor = UIColor(red: 0.95, green: 0.23, blue: 0.41, alpha: 0.4)
-//        let selectedCell: SelectCategoryCell = collectionView.cellForItem(at: indexPath)! as! SelectCategoryCell
-//        selectedCell.contentView.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.98, alpha: 1)
-//        selectedCell.label.font = .systemFont(ofSize: 13, weight: .regular)
-//        selectedCell.label.textColor = selectedColor
+
     }
 }
 

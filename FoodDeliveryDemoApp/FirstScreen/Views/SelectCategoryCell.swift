@@ -13,12 +13,12 @@ class SelectCategoryCell: UICollectionViewCell {
         didSet {
             if isSelected {
                 let selectedColor = UIColor(red: 0.95, green: 0.23, blue: 0.41, alpha: 0.4)
-                self.contentView.backgroundColor = selectedColor
+                self.label.backgroundColor = selectedColor
                 self.label.font = .systemFont(ofSize: 13, weight: .bold)
                 self.label.textColor = UIColor(red: 0.95, green: 0.23, blue: 0.41, alpha: 1)
             } else {
                 let selectedColor = UIColor(red: 0.95, green: 0.23, blue: 0.41, alpha: 0.4)
-                self.contentView.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.98, alpha: 1)
+                self.label.backgroundColor = UIColor(red: 0.95, green: 0.96, blue: 0.98, alpha: 1)
                 self.label.font = .systemFont(ofSize: 13, weight: .regular)
                 self.label.textColor = selectedColor
             }
@@ -32,6 +32,8 @@ class SelectCategoryCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 13)
         label.textAlignment = .center
         label.toAutoLayout()
+        label.layer.cornerRadius = 15
+        label.layer.masksToBounds = true
         return label
     }()
     

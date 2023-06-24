@@ -89,28 +89,53 @@ extension FirstScreenView: UITableViewDataSource {
 
     }
 
-   
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-      
-            
-            
-            
-            
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+     
+        let index: Int
 
-        
+        if indexPath.row < menu.count - 1{
+            index = indexPath.row + 1
+        } else if indexPath.row == menu.count {
+            index = indexPath.row
+        } else {
+            index = indexPath.row - 1
+        }
+
+
+        let currentCatInDispalyedCell = menu[index].category
+
+
+        let selectedCategoryCell = header.collectionView.visibleCells.first(where: { $0.isSelected }) as? SelectCategoryCell
+        let currentSelectedCategory = selectedCategoryCell?.label.text?.lowercased()
+
+        if currentCatInDispalyedCell?.rawValue != currentSelectedCategory {
+            deselectAllCategories()
+            guard let categotyToSelectIndex = Category.allCases.firstIndex(where: { $0 == currentCatInDispalyedCell }) else { return }
+            header.collectionView.cellForItem(at: IndexPath(item: categotyToSelectIndex, section: 0))?.isSelected = true
+        }
     }
-
+    
+    func deselectAllCategories() {
+        for index in 0...Category.allCases.count - 1 {
+            let indexPath = IndexPath(item: index, section: 0)
+            header.collectionView.cellForItem(at: indexPath)?.isSelected = false
+        }
+    }
+    
 
     //MARK: EXTENSIONS TABLEVIEW DATA SOURCE (HEADER)
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        header.onTap = { category in
+        header.onTap = { [self] category in
+            deselectAllCategories()
             if let index = self.menu.firstIndex(where: { $0.category?.rawValue == category.lowercased()}) {
                 let indexPath = IndexPath(row: index, section: 0)
                 tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             }
         }
+        
+        header.collectionView.cellForItem(at: IndexPath(item: 0, section: 0))?.isSelected = true
         return header
     }
 
@@ -129,19 +154,3 @@ extension FirstScreenView: UITableViewDelegate {
 
 }
 
-/*
- private func applyData() {
-     DispatchQueue.main.async {
-         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? LatestTableCell {
-            cell.collectionView.reloadData()
-         }
-         if let cell1 = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FlashSaleTableCell {
-            cell1.collectionView.reloadData()
-         }
-         if let cell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? LatestTableCell {
-            cell.collectionView.reloadData()
-         }
-         self.tableView.reloadData()
-     }
- }
- */
