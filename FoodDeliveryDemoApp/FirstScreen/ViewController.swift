@@ -23,12 +23,10 @@ class ViewController: UIViewController {
         setupViews()
         viewModel.fetchMenu()
         viewModel.reloader =  { [self] in
-            mainView.menu = viewModel.menu.sorted(by: { $0.category!.rawValue < $1.category!.rawValue })
+            mainView.menu = viewModel.menu.sorted(by: { $0.category! < $1.category! })
             mainView.tableView.reloadData()
         }
-        let data = realm.objects(MenuItemCashed.self)
-        print(data)
-        print(data.count)
+      
     }
         
   

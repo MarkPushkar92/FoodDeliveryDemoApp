@@ -8,18 +8,22 @@
 import UIKit
 
 protocol FirstScreenOutput {
+    
+    var menu: [MenuObject] {get set}
+    
+    var reloader: (() -> ())? { get }
 
+    func fetchMenu()
+    
+    func saveToDataBase(object: MenuObject, closure: @escaping (Data?, MenuItemCashed) -> () )
 }
 
 final class FirtsScreenViewModel: FirstScreenOutput {
     
-    
     let networkService = NetworkFetcherService()
     
     var reloader: (() -> ())?
-    
-    private var counter = 0
-    
+        
     var menu = [MenuObject]() {
         didSet {
             if menu.count == 20 {
@@ -29,9 +33,7 @@ final class FirtsScreenViewModel: FirstScreenOutput {
         }
         
     }
-            
-
-    
+     
     func fetchMenu()  {
         for category in Category.allCases {
             networkService.fetchDetails(categoty: category) { recievedData in
@@ -42,8 +44,8 @@ final class FirtsScreenViewModel: FirstScreenOutput {
                         let name = object.name
                         let description = object.dsc
                         let image = object.img
-                        let price = object.price
-                        let menuObject = MenuObject(img: image, name: name, dsc: description, price: price, category: category)
+                        let price = String(object.price ?? 0)
+                        let menuObject = MenuObject(img: image, name: name, dsc: description, price: price, category: category.rawValue, imgData: nil)
                         self.menu.append(menuObject)
                         self.saveToDataBase(object: menuObject) { (data, item) in
                             item.imageData = data
@@ -58,7 +60,8 @@ final class FirtsScreenViewModel: FirstScreenOutput {
                         let image = object.imageData
                         let price = object.price
                         let category = object.category
-                        let menuObject = MenuObject(img: image, name: name, dsc: description, price: price, category: category)
+                        let menuObject = MenuObject(img: nil, name: name, dsc: description, price: price ?? "00", category: category, imgData: image)
+                        self.menu.append(menuObject)
 
                         
                     }
@@ -68,11 +71,11 @@ final class FirtsScreenViewModel: FirstScreenOutput {
     }
     
     
-    func saveToDataBase(object: MenuObject, closure: @escaping (Data?, MenuItemCashed) -> () ) {
+    func saveToDataBase(object: MenuObject, closure: @escaping (Data?, MenuItemCashed) -> ()) {
         let name = object.name
         let desc = object.dsc
         let price = String(describing: object.price)
-        let category = object.category?.rawValue
+        let category = object.category
         guard let url = URL(string: object.img!) else { return }
         
         var imageData: Data?

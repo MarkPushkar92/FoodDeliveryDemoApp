@@ -85,23 +85,21 @@ extension FirstScreenView: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MenuCell
-
             let object = menu[indexPath.row]
-
-            cell.category = object.category
+            cell.category =  Category.withLabel((object.category ?? Category.allCases.first?.rawValue)!)
             cell.titleLabel.text = object.name
             cell.decriptionLabel.text = object.dsc
-            if let price = object.price {
-                cell.priceLabel.text = "от \(Int(price)) р"
-            }
+            cell.priceLabel.text = "от \(object.price) р"
+          
             if let url = URL(string: object.img ?? "") {
-
                 cell.image.load(url: url)
+            } else {
+                guard let data = object.imgData else { return cell }
+                let image = UIImage(data: data)
+                cell.image.image = image
             }
             return cell
         }
-        
-
     }
 
     
@@ -119,17 +117,13 @@ extension FirstScreenView: UITableViewDataSource {
             }
 
             let currentCatInDispalyedCell = menu[index].category
-
-
             let selectedCategoryCell = header.collectionView.visibleCells.first(where: { $0.isSelected }) as? SelectCategoryCell
             let currentSelectedCategory = selectedCategoryCell?.label.text?.lowercased()
-
-            if currentCatInDispalyedCell?.rawValue != currentSelectedCategory {
+            if currentCatInDispalyedCell != currentSelectedCategory {
                 deselectAllCategories()
-                guard let categotyToSelectIndex = Category.allCases.firstIndex(where: { $0 == currentCatInDispalyedCell }) else { return }
+                guard let categotyToSelectIndex = Category.allCases.firstIndex(where: { $0.rawValue == currentCatInDispalyedCell }) else { return }
                 header.collectionView.cellForItem(at: IndexPath(item: categotyToSelectIndex, section: 0))?.isSelected = true
             }
-
         }
      
     }
@@ -148,7 +142,7 @@ extension FirstScreenView: UITableViewDataSource {
         if section == 1 {
             header.onTap = { [self] category in
                 deselectAllCategories()
-                if let index = self.menu.firstIndex(where: { $0.category?.rawValue == category.lowercased()}) {
+                if let index = self.menu.firstIndex(where: { $0.category == category.lowercased()}) {
                     let indexPath = IndexPath(row: index, section: 1)
                     tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 }
@@ -168,22 +162,17 @@ extension FirstScreenView: UITableViewDataSource {
         } else {
             return 0
         }
-        
     }
-
 }
 
 extension FirstScreenView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         if indexPath.section == 0 {
             return 112
         } else {
             return 180
         }
     }
-
-
 }
 
